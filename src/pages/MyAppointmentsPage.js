@@ -160,7 +160,7 @@ function MyAppointments() {
             }
 
             try {
-                const response = await fetch('http://127.0.0.1:5001/api/my-appointments', {
+                const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-appointments', {
                     headers: {
                         'Authorization': `Bearer ${token}`,
                     },
@@ -187,7 +187,7 @@ function MyAppointments() {
         const token = localStorage.getItem('token');
         setError(null);  
         try {
-            const response = await fetch(`http://127.0.0.1:5001/api/appointments/${appointmentId}`, {
+            const response = await fetch(`https://nyayconnect-backend-343573523036.asia-south2.run.app/api/appointments/${appointmentId}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',

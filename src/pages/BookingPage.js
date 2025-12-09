@@ -141,7 +141,7 @@ function BookingPage() {
                 return;
             }
             try {
-                const response = await fetch(`http://127.0.0.1:5001/api/lawyers/${lawyerId}`);
+                const response = await fetch(`https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers/${lawyerId}`);
                 if (!response.ok) {
                     throw new Error('Could not fetch lawyer details.');
                 }
@@ -181,7 +181,7 @@ function BookingPage() {
                 setIsLoading(false);
                 return;
             }
-            const response = await fetch('http://127.0.0.1:5001/api/appointments', {
+            const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/appointments', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

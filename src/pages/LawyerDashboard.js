@@ -20,7 +20,7 @@ function LawyerDashboard() {
   const fetchAppointments = async (token) => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5001/api/lawyer/appointments', {
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyer/appointments', {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -59,7 +59,7 @@ function LawyerDashboard() {
   const fetchProfile = async (token) => {
     try {
       setLoading(true);
-      const response = await fetch('http://localhost:5001/api/my-lawyer-profile', { 
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile', {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -139,7 +139,7 @@ function LawyerDashboard() {
 
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:5001/api/my-lawyer-profile', {  
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile', {
         method: 'POST',  
         headers: {
           'Content-Type': 'application/json',
@@ -174,7 +174,7 @@ function LawyerDashboard() {
   const updateAppointmentStatus = async (appointmentId, status) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`http://localhost:5001/api/lawyer/appointments/${appointmentId}/status`, {
+      const response = await fetch(`https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyer/appointments/${appointmentId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

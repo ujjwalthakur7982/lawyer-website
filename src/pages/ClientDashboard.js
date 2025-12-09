@@ -33,7 +33,7 @@ const ClientDashboard = () => {
 
   const fetchLawyers = async () => {
     try {
-      const response = await fetch('http://localhost:5001/api/lawyers');
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers');
       const data = await response.json();
       
       if (data.success) {
@@ -74,7 +74,7 @@ const ClientDashboard = () => {
     const token = localStorage.getItem('token');
     
     try {
-      const response = await fetch('http://localhost:5001/api/appointments', {
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/appointments', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

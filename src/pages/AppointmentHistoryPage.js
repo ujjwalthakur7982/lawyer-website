@@ -19,7 +19,7 @@ function AppointmentHistoryPage() {
           return;
         }
 
-        const response = await fetch('http://localhost:5001/api/appointment-history', {
+        const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/appointment-history', {
           method: 'GET',
           headers: {
             'Authorization': `Bearer ${token}`,

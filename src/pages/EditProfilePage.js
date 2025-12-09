@@ -24,9 +24,10 @@ function EditProfilePage() {
         return;
       }
 
+      // --- URL UPDATED HERE ---
       const apiUrl = role === 'Lawyer' 
-        ? 'http://localhost:5001/api/my-lawyer-profile' 
-        : 'http://localhost:5001/api/user/profile';
+        ? 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile' 
+        : 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/user/profile';
 
       try {
         const response = await fetch(apiUrl, {
@@ -76,7 +77,12 @@ function EditProfilePage() {
     const token = localStorage.getItem('token');
     
     const isLawyer = userRole === 'Lawyer';
-    const apiUrl = isLawyer ? 'http://localhost:5001/api/my-lawyer-profile' : 'http://localhost:5001/api/user/profile';
+    
+    // --- URL UPDATED HERE ---
+    const apiUrl = isLawyer 
+      ? 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile' 
+      : 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/user/profile';
+      
     const method = isLawyer ? 'POST' : 'PUT';
 
     try {

@@ -27,7 +27,7 @@ function SignUpPage() {
      
 
     try {
-      const response = await fetch('http://localhost:5001/api/register', {
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, role }),

@@ -21,7 +21,8 @@ function LawyerDetailsPage() {
     }
     
     try {
-      const response = await fetch('http://localhost:5001/api/lawyer-profile', {
+      // --- URL UPDATED HERE ---
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyer-profile', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

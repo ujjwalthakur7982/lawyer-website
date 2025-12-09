@@ -16,7 +16,7 @@ function LoginPage() {
     }
 
     try {
-      const response = await fetch('http://localhost:5001/api/login', {
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/login', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, password: password }),

@@ -34,10 +34,11 @@ function MyAccountPage() {
     try {
       let apiUrl = '';
       
+      // --- URL UPDATED HERE ---
       if (userRole === 'Lawyer') {
-        apiUrl = 'http://localhost:5001/api/my-lawyer-profile';
+        apiUrl = 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile';
       } else {
-        apiUrl = 'http://localhost:5001/api/user/profile';
+        apiUrl = 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/user/profile';
       }
 
       const response = await fetch(apiUrl, {

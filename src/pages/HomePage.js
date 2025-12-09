@@ -46,7 +46,8 @@ function HomePage() {
       setIsSearching(true);
       console.log('🔄 Fetching ALL lawyers...');
       
-      const response = await fetch('http://localhost:5001/api/lawyers');
+      // --- URL UPDATED HERE ---
+      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers');
       const data = await response.json();
       console.log('📊 RAW API Response:', data);
       
@@ -77,7 +78,8 @@ function HomePage() {
     try {
       setIsSearching(true);
       
-      let url = 'http://localhost:5001/api/lawyers';
+      // --- URL UPDATED HERE ---
+      let url = 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers';
       const params = [];
       
       if (search) params.push(`search=${encodeURIComponent(search)}`);

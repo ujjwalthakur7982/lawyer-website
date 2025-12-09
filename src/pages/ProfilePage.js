@@ -10,7 +10,7 @@ function ProfilePage() {
   useEffect(() => {
     const fetchLawyerProfile = async () => {
       try {
-        const response = await fetch(`http://localhost:5001/api/lawyers/${lawyerId}`);
+        const response = await fetch(`https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers/${lawyerId}`);
         const data = await response.json();
         
         if (response.ok) {
