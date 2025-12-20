@@ -77,28 +77,26 @@
 
 @media (max-width: 768px) {
   .navbar {
-    padding: 12px 20px; /* Padding kam kar di taaki logo aur button fit ho jayein */
-    flex-wrap: wrap; /* Agar cheezein badi hon toh wo niche shift ho jayein */
+    padding: 10px 15px;
+    flex-direction: column; /* Navbar ko do lines mein kar diya */
+    gap: 10px;
   }
 
-  .navbar-logo {
-    font-size: 20px; /* Logo thoda chota */
-  }
-
-  /* Links ko mobile par chhupana ya adjust karna */
   .navbar-links {
-    display: none; /* Mobile par aksar links hamburger menu mein hote hain, 
-                     agar tune hamburger nahi banaya toh filhaal ise hide karna safe hai 
-                     taaki design na phate. */
+    display: flex; /* 'none' ko hata kar 'flex' kar diya */
+    gap: 15px; /* Links ke beech ka gap kam kiya */
+    flex-wrap: wrap; /* Agar zyada links hon toh niche shift ho jayein */
+    justify-content: center;
+    width: 100%;
+  }
+
+  .navbar-links a {
+    font-size: 14px; /* Text thoda chota mobile ke liye */
   }
 
   .navbar-actions {
-    gap: 8px; /* Buttons ke beech gap kam */
-  }
-
-  .login-btn, .logout-btn {
-    padding: 8px 15px; /* Buttons thode chote phone ke liye */
-    font-size: 14px;
+    width: 100%;
+    justify-content: center;
   }
 }
 
