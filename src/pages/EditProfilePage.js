@@ -12,6 +12,9 @@ function EditProfilePage() {
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState('');
 
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   useEffect(() => {
     const role = localStorage.getItem('role');
     setUserRole(role);
@@ -24,10 +27,10 @@ function EditProfilePage() {
         return;
       }
 
-      // --- URL UPDATED HERE ---
+      // --- ✅ URL UPDATED TO AZURE ---
       const apiUrl = role === 'Lawyer' 
-        ? 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile' 
-        : 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/user/profile';
+        ? `${AZURE_BACKEND_URL}/api/my-lawyer-profile` 
+        : `${AZURE_BACKEND_URL}/api/user/profile`;
 
       try {
         const response = await fetch(apiUrl, {
@@ -75,13 +78,12 @@ function EditProfilePage() {
     setError('');
     
     const token = localStorage.getItem('token');
-    
     const isLawyer = userRole === 'Lawyer';
     
-    // --- URL UPDATED HERE ---
+    // --- ✅ URL UPDATED TO AZURE ---
     const apiUrl = isLawyer 
-      ? 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile' 
-      : 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/user/profile';
+      ? `${AZURE_BACKEND_URL}/api/my-lawyer-profile` 
+      : `${AZURE_BACKEND_URL}/api/user/profile`;
       
     const method = isLawyer ? 'POST' : 'PUT';
 

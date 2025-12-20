@@ -10,10 +10,12 @@ function SignUpPage() {
   const [role, setRole] = useState('Client');
   const navigate = useNavigate();
 
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   const handleSignUp = async (event) => {
     event.preventDefault();
 
-     
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         alert("Please enter a valid email address (e.g., user@gmail.com).");
@@ -24,10 +26,10 @@ function SignUpPage() {
       alert('Password must be at least 8 characters long.');
       return;
     }
-     
 
     try {
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/register', {
+      // ✅ URL UPDATED TO AZURE
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/register`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password, role }),
@@ -36,7 +38,6 @@ function SignUpPage() {
       const data = await response.json();
 
       if (data.success) {
-         
         if (role === 'Lawyer') {
           alert('Account created! Please complete your professional profile.');
           navigate('/complete-profile');  

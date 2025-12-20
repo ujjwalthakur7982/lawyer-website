@@ -7,10 +7,14 @@ function ProfilePage() {
   let { lawyerId } = useParams();  
   const [lawyer, setLawyer] = useState(null);  
 
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   useEffect(() => {
     const fetchLawyerProfile = async () => {
       try {
-        const response = await fetch(`https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers/${lawyerId}`);
+        // ✅ URL UPDATED TO AZURE
+        const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyers/${lawyerId}`);
         const data = await response.json();
         
         if (response.ok) {
@@ -27,12 +31,10 @@ function ProfilePage() {
     fetchLawyerProfile();
   }, [lawyerId]);  
 
-   
   if (lawyer === null) {
     return <div className="loading">Loading Profile...</div>;
   }
   
-   
   if (lawyer === false) {
     return <div className="not-found">Lawyer not found!</div>;
   }
@@ -53,11 +55,11 @@ function ProfilePage() {
 
         <section className="profile-card-stats">
           <div className="stat-item">
-            <span>⭐ 4.8</span> { }
+            <span>⭐ 4.8</span>
             <p>Rating</p>
           </div>
           <div className="stat-item">
-            <span>{lawyer.Experience}+</span>
+            <span>{lawyer.Experience || lawyer.YearsOfExperience}+</span>
             <p>Years Exp.</p>
           </div>
           <div className="stat-item">
@@ -68,7 +70,7 @@ function ProfilePage() {
 
         <section className="profile-card-bio">
           <h3>About</h3>
-          <p>{lawyer.Bio}</p>
+          <p>{lawyer.Bio || "No bio available."}</p>
         </section>
 
         <footer className="profile-card-footer">

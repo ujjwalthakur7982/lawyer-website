@@ -12,6 +12,9 @@ function HomePage() {
   const [selectedCategory, setSelectedCategory] = useState('');
   const [isSearching, setIsSearching] = useState(false);
 
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   // Manual search function
   const handleSearch = () => {
     if (tempSearchTerm.trim() === '') {
@@ -44,10 +47,10 @@ function HomePage() {
   const fetchAllLawyers = async () => {
     try {
       setIsSearching(true);
-      console.log('🔄 Fetching ALL lawyers...');
+      console.log('🔄 Fetching ALL lawyers from Azure...');
       
-      // --- URL UPDATED HERE ---
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers');
+      // ✅ URL UPDATED TO AZURE
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyers`);
       const data = await response.json();
       console.log('📊 RAW API Response:', data);
       
@@ -78,8 +81,8 @@ function HomePage() {
     try {
       setIsSearching(true);
       
-      // --- URL UPDATED HERE ---
-      let url = 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers';
+      // ✅ URL UPDATED TO AZURE
+      let url = `${AZURE_BACKEND_URL}/api/lawyers`;
       const params = [];
       
       if (search) params.push(`search=${encodeURIComponent(search)}`);

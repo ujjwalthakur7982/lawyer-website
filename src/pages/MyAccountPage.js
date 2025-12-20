@@ -4,24 +4,24 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './MyAccountPage.css';
 
- 
+// Icons components
 const EditIcon = () => ( <svg className="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.5L14.732 3.732z"></path></svg> );
 const CalendarIcon = () => ( <svg className="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 002-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg> );
 const LogoutIcon = () => ( <svg className="button-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg> );
 
- 
 function MyAccountPage() {
   const navigate = useNavigate();
   const [userData, setUserData] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
 
-   
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   const fetchUserData = async () => {
     setLoading(true);
     setError('');
     
-     
     const token = localStorage.getItem('token');
     const userRole = localStorage.getItem('role');
 
@@ -34,11 +34,11 @@ function MyAccountPage() {
     try {
       let apiUrl = '';
       
-      // --- URL UPDATED HERE ---
+      // --- ✅ URL UPDATED TO AZURE ---
       if (userRole === 'Lawyer') {
-        apiUrl = 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile';
+        apiUrl = `${AZURE_BACKEND_URL}/api/my-lawyer-profile`;
       } else {
-        apiUrl = 'https://nyayconnect-backend-343573523036.asia-south2.run.app/api/user/profile';
+        apiUrl = `${AZURE_BACKEND_URL}/api/user/profile`;
       }
 
       const response = await fetch(apiUrl, {
@@ -51,9 +51,7 @@ function MyAccountPage() {
 
       const data = await response.json();
 
-       
       if (data.success) {
-         
         const profileData = userRole === 'Lawyer' ? data.profile : data.user;
         setUserData(profileData);
       } else {
@@ -92,7 +90,6 @@ function MyAccountPage() {
 
   if (!userData) return null;
 
-   
   const joinDate = userData.CreatedAt || userData.joinDate || new Date();
   const formattedJoinDate = new Date(joinDate).toLocaleDateString('en-US', {
     month: 'long', year: 'numeric'
@@ -100,11 +97,10 @@ function MyAccountPage() {
 
   return (
     <div className="myaccount-container">
-      { }
       <div className="profile-header">
         <img 
           className="profile-image"
-          src={`https://placehold.co/90x90/EBF4FF/333333?text=${(userData.Name || userData.name).charAt(0)}`}
+          src={`https://placehold.co/90x90/EBF4FF/333333?text=${(userData.Name || userData.name || 'U').charAt(0)}`}
           alt="User Profile"
         />
         <div className="profile-info">
@@ -117,14 +113,12 @@ function MyAccountPage() {
         </div>
       </div>
 
-      { }
       <div className="profile-actions">
         <button className="action-button" onClick={() => navigate('/edit-profile')}><EditIcon />Edit Profile</button>
         <button className="action-button" onClick={() => navigate('/appointment-history')}><CalendarIcon />Appointments</button>
         <button className="action-button logout" onClick={handleLogout}><LogoutIcon />Logout</button>
       </div>
       
-      { }
       {(userData.UserType === 'Lawyer' || userData.role === 'Lawyer') && (
         <div className="details-section">
           <h3>Professional Information</h3>
@@ -138,7 +132,6 @@ function MyAccountPage() {
         </div>
       )}
       
-      { }
       <div className="user-id-footer">
         User ID: {userData.UserID || userData.userId}
       </div>

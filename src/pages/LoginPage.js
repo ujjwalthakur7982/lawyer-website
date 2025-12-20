@@ -8,6 +8,9 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   const handleLogin = async (event) => {
     event.preventDefault();
     if (!email || !password) {
@@ -16,7 +19,8 @@ function LoginPage() {
     }
 
     try {
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/login', {
+      // ✅ URL UPDATED TO AZURE
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ email: email, password: password }),

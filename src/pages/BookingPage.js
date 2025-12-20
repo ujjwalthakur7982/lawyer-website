@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 
-// CSS styles are now embedded directly inside the component.
+// CSS styles embedded directly inside the component.
 const styles = `
     .booking-page-container {
         display: flex;
         justify-content: center;
-        align-items: flex-start; /* Align to top */
+        align-items: flex-start;
         min-height: 100vh;
         background-color: #f0f4f8;
         padding: 40px 20px;
@@ -27,7 +27,7 @@ const styles = `
         margin-bottom: 25px;
     }
     .lawyer-details h1 {
-        font-size: 1.5rem; /* Adjusted size */
+        font-size: 1.5rem;
         color: #1a202c;
         font-weight: 600;
     }
@@ -134,6 +134,9 @@ function BookingPage() {
     const [error, setError] = useState('');
     const [successMessage, setSuccessMessage] = useState('');
 
+    // ✅ Naya Azure Backend URL variable
+    const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
     useEffect(() => {
         const fetchLawyerDetails = async () => {
             if (!lawyerId) {
@@ -141,7 +144,8 @@ function BookingPage() {
                 return;
             }
             try {
-                const response = await fetch(`https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers/${lawyerId}`);
+                // ✅ Updated to Azure URL
+                const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyers/${lawyerId}`);
                 if (!response.ok) {
                     throw new Error('Could not fetch lawyer details.');
                 }
@@ -181,7 +185,8 @@ function BookingPage() {
                 setIsLoading(false);
                 return;
             }
-            const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/appointments', {
+            // ✅ Updated to Azure URL
+            const response = await fetch(`${AZURE_BACKEND_URL}/api/appointments`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -272,4 +277,3 @@ function BookingPage() {
 }
 
 export default BookingPage;
-

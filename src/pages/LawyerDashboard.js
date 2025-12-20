@@ -16,11 +16,14 @@ function LawyerDashboard() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-   
+  // ✅ Naya Azure Backend URL variable
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   const fetchAppointments = async (token) => {
     try {
       setLoading(true);
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyer/appointments', {
+      // ✅ Updated to Azure URL
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyer/appointments`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -39,7 +42,6 @@ function LawyerDashboard() {
       }
     } catch (error) { 
       console.error("Error fetching appointments:", error);
-       
       setAppointments([
         {
           AppointmentID: 1,
@@ -55,11 +57,11 @@ function LawyerDashboard() {
     }
   };
 
-   
   const fetchProfile = async (token) => {
     try {
       setLoading(true);
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile', {
+      // ✅ Updated to Azure URL
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/my-lawyer-profile`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
@@ -79,26 +81,9 @@ function LawyerDashboard() {
           city: data.profile.City || '',
           consultationFee: data.profile.ConsultationFee || ''
         });
-      } else {
-         
-        setProfileData({
-          bio: '',
-          specializations: '',
-          experience: '',
-          city: '',
-          consultationFee: ''
-        });
       }
     } catch (error) { 
       console.error("Error fetching profile:", error);
-       
-      setProfileData({
-        bio: 'Experienced lawyer specializing in civil cases.',
-        specializations: 'Civil Law, Property Law',
-        experience: '8',
-        city: 'Delhi',
-        consultationFee: '1500'
-      });
     } finally {
       setLoading(false);
     }
@@ -110,12 +95,9 @@ function LawyerDashboard() {
         navigate('/login');
         return;
     }
-    
-     
     fetchAppointments(token);
   }, [navigate]);
 
-   
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (!token) return;
@@ -127,7 +109,6 @@ function LawyerDashboard() {
     }
   }, [activeTab]);
 
-   
   const handleProfileUpdate = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
@@ -139,7 +120,8 @@ function LawyerDashboard() {
 
     setLoading(true);
     try {
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/my-lawyer-profile', {
+      // ✅ Updated to Azure URL
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/my-lawyer-profile`, {
         method: 'POST',  
         headers: {
           'Content-Type': 'application/json',
@@ -164,17 +146,14 @@ function LawyerDashboard() {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setProfileData(prev => ({ 
-      ...prev, 
-      [name]: value 
-    }));
+    setProfileData(prev => ({ ...prev, [name]: value }));
   };
 
-   
   const updateAppointmentStatus = async (appointmentId, status) => {
     const token = localStorage.getItem('token');
     try {
-      const response = await fetch(`https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyer/appointments/${appointmentId}/status`, {
+      // ✅ Updated to Azure URL
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyer/appointments/${appointmentId}/status`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -217,55 +196,30 @@ function LawyerDashboard() {
       </div>
 
       <div className="dashboard-content">
-        {loading && (
-          <div className="loading">Loading...</div>
-        )}
+        {loading && <div className="loading">Loading...</div>}
 
         {activeTab === 'appointments' && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }}
-            className="appointments-section"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="appointments-section">
             <h2>Appointment Requests</h2>
-            
             {appointments.length === 0 ? (
-              <div className="empty-state">
-                <p>No appointments found</p>
-              </div>
+              <div className="empty-state"><p>No appointments found</p></div>
             ) : (
               <div className="appointments-list">
                 {appointments.map(appointment => (
                   <div key={appointment.AppointmentID} className="appointment-card">
                     <div className="appointment-header">
                       <h3>{appointment.ClientName}</h3>
-                      <span className={`status-badge ${appointment.Status}`}>
-                        {appointment.Status}
-                      </span>
+                      <span className={`status-badge ${appointment.Status}`}>{appointment.Status}</span>
                     </div>
-                    
                     <div className="appointment-details">
                       <p><strong>Date:</strong> {appointment.Date}</p>
                       <p><strong>Time:</strong> {appointment.Time}</p>
-                      {appointment.CaseDetails && (
-                        <p><strong>Case:</strong> {appointment.CaseDetails}</p>
-                      )}
+                      {appointment.CaseDetails && <p><strong>Case:</strong> {appointment.CaseDetails}</p>}
                     </div>
-
                     {appointment.Status === 'pending' && (
                       <div className="appointment-actions">
-                        <button 
-                          className="btn-accept"
-                          onClick={() => updateAppointmentStatus(appointment.AppointmentID, 'confirmed')}
-                        >
-                          Accept
-                        </button>
-                        <button 
-                          className="btn-reject"
-                          onClick={() => updateAppointmentStatus(appointment.AppointmentID, 'cancelled')}
-                        >
-                          Reject
-                        </button>
+                        <button className="btn-accept" onClick={() => updateAppointmentStatus(appointment.AppointmentID, 'confirmed')}>Accept</button>
+                        <button className="btn-reject" onClick={() => updateAppointmentStatus(appointment.AppointmentID, 'cancelled')}>Reject</button>
                       </div>
                     )}
                   </div>
@@ -276,83 +230,30 @@ function LawyerDashboard() {
         )}
 
         {activeTab === 'profile' && (
-          <motion.div 
-            initial={{ opacity: 0 }} 
-            animate={{ opacity: 1 }}
-            className="profile-section"
-          >
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="profile-section">
             <h2>Edit Your Profile</h2>
             <form className="profile-edit-form" onSubmit={handleProfileUpdate}>
               <div className="input-group">
                 <label htmlFor="bio">About / Bio</label>
-                <textarea 
-                  id="bio" 
-                  name="bio" 
-                  value={profileData.bio} 
-                  onChange={handleInputChange} 
-                  rows="4" 
-                  placeholder="Describe your expertise and experience..."
-                  required 
-                />
+                <textarea id="bio" name="bio" value={profileData.bio} onChange={handleInputChange} rows="4" required />
               </div>
-              
               <div className="input-group">
                 <label htmlFor="specializations">Specializations</label>
-                <input 
-                  type="text" 
-                  id="specializations" 
-                  name="specializations" 
-                  value={profileData.specializations} 
-                  onChange={handleInputChange} 
-                  placeholder="e.g., Criminal Law, Civil Law, Corporate Law"
-                  required 
-                />
+                <input type="text" id="specializations" name="specializations" value={profileData.specializations} onChange={handleInputChange} required />
               </div>
-              
               <div className="input-group">
                 <label htmlFor="experience">Years of Experience</label>
-                <input 
-                  type="number" 
-                  id="experience" 
-                  name="experience" 
-                  value={profileData.experience} 
-                  onChange={handleInputChange} 
-                  min="0"
-                  max="50"
-                  required 
-                />
+                <input type="number" id="experience" name="experience" value={profileData.experience} onChange={handleInputChange} required />
               </div>
-              
               <div className="input-group">
                 <label htmlFor="city">City</label>
-                <input 
-                  type="text" 
-                  id="city" 
-                  name="city" 
-                  value={profileData.city} 
-                  onChange={handleInputChange} 
-                  placeholder="e.g., Delhi, Mumbai, Bangalore"
-                  required 
-                />
+                <input type="text" id="city" name="city" value={profileData.city} onChange={handleInputChange} required />
               </div>
-              
               <div className="input-group">
                 <label htmlFor="consultationFee">Consultation Fee (₹)</label>
-                <input 
-                  type="number" 
-                  id="consultationFee" 
-                  name="consultationFee" 
-                  value={profileData.consultationFee} 
-                  onChange={handleInputChange} 
-                  min="0"
-                  placeholder="e.g., 1500"
-                  required 
-                />
+                <input type="number" id="consultationFee" name="consultationFee" value={profileData.consultationFee} onChange={handleInputChange} required />
               </div>
-              
-              <button type="submit" className="form-button" disabled={loading}>
-                {loading ? 'Saving...' : 'Save Changes'}
-              </button>
+              <button type="submit" className="form-button" disabled={loading}>{loading ? 'Saving...' : 'Save Changes'}</button>
             </form>
           </motion.div>
         )}

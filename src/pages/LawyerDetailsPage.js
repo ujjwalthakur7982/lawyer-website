@@ -11,6 +11,9 @@ function LawyerDetailsPage() {
   const [consultationFee, setConsultationFee] = useState('');
   const navigate = useNavigate();
 
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   const handleSubmitDetails = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
@@ -21,8 +24,8 @@ function LawyerDetailsPage() {
     }
     
     try {
-      // --- URL UPDATED HERE ---
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyer-profile', {
+      // ✅ URL UPDATED TO AZURE
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyer-profile`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

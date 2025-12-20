@@ -14,6 +14,9 @@ const ClientDashboard = () => {
   });
   const navigate = useNavigate();
 
+  // ✅ Naya Azure Backend URL
+  const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     const userRole = localStorage.getItem('userRole');
@@ -33,7 +36,8 @@ const ClientDashboard = () => {
 
   const fetchLawyers = async () => {
     try {
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/lawyers');
+      // ✅ Purana URL hata kar Azure wala daal diya
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyers`);
       const data = await response.json();
       
       if (data.success) {
@@ -74,7 +78,8 @@ const ClientDashboard = () => {
     const token = localStorage.getItem('token');
     
     try {
-      const response = await fetch('https://nyayconnect-backend-343573523036.asia-south2.run.app/api/appointments', {
+      // ✅ Purana URL hata kar Azure wala daal diya
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/appointments`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
