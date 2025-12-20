@@ -75,28 +75,35 @@
 }
 /* --- Mobile Responsiveness (Navbar ke liye niche add kar de) --- */
 
+/* --- Mobile Navbar Fix --- */
 @media (max-width: 768px) {
   .navbar {
-    padding: 10px 15px;
-    flex-direction: column; /* Navbar ko do lines mein kar diya */
-    gap: 10px;
+    padding: 15px;
+    flex-direction: column; /* Logo upar, links neeche */
+    gap: 15px;
+    text-align: center;
   }
 
+  /* Jo pehle hide tha, use ab 'flex' karke wapas layenge */
   .navbar-links {
-    display: flex; /* 'none' ko hata kar 'flex' kar diya */
-    gap: 15px; /* Links ke beech ka gap kam kiya */
-    flex-wrap: wrap; /* Agar zyada links hon toh niche shift ho jayein */
+    display: flex !important; 
+    flex-direction: row; /* Links ko ek line mein rakho */
+    flex-wrap: wrap; /* Agar screen bohot patli hai toh apne aap toot ke neeche aa jayein */
     justify-content: center;
+    gap: 15px;
     width: 100%;
   }
 
   .navbar-links a {
-    font-size: 14px; /* Text thoda chota mobile ke liye */
+    font-size: 14px; /* Phone par size thoda chota */
+    padding: 5px 0;
   }
 
   .navbar-actions {
     width: 100%;
     justify-content: center;
+    border-top: 1px solid #eee; /* Buttons ke upar halki line separation ke liye */
+    padding-top: 10px;
   }
 }
 
