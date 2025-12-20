@@ -155,4 +155,66 @@
   border-radius: 8px;
   text-align: center;
 }
+/* --- Mobile Responsiveness (Appointment History ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .appointment-history-container {
+    margin: 20px 10px; /* Side margins kam kar di */
+  }
+
+  .appointment-header {
+    padding: 20px 15px;
+  }
+
+  .appointment-header h2 {
+    font-size: 22px; /* Heading thodi choti */
+  }
+
+  /* Sabse important: flex ko vertical kiya */
+  .appointment-item {
+    flex-direction: column;
+    align-items: flex-start; /* Sab left-aligned rahega */
+    gap: 15px;
+    padding: 20px 15px;
+  }
+
+  .appointment-info {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  /* Details ko right-align se hata kar left-align kiya */
+  .appointment-details {
+    text-align: left;
+    margin-left: 0;
+    width: 100%;
+    border-top: 1px solid #f0f0f0;
+    padding-top: 10px;
+  }
+
+  .appointment-status {
+    width: 100%;
+    text-align: left; /* Status badge left mein dikhega */
+  }
+
+  .status-badge {
+    display: inline-block;
+  }
+
+  .appointment-actions {
+    text-align: center; /* Back button center mein */
+  }
+}
+
+/* Screen width agar aur choti ho */
+@media (max-width: 480px) {
+  .lawyer-details .lawyer-name {
+    font-size: 16px;
+  }
+  
+  .appointment-main .appointment-date {
+    font-size: 14px;
+  }
+}
 

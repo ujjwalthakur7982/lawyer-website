@@ -320,3 +320,76 @@
         flex: 1;
     }
 }
+/* --- Dashboard Mobile Refinement (Sirf ye niche add kar de) --- */
+
+@media (max-width: 768px) {
+    /* 1. Tabs ko mobile par scrollable banaya taaki ye screen se bahar na jayein */
+    .dashboard-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        display: block; /* Flex se block taaki scroll kaam kare */
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none; /* Firefox ke liye scrollbar chhupaya */
+    }
+
+    .dashboard-tabs::-webkit-scrollbar {
+        display: none; /* Chrome/Safari ke liye scrollbar chhupaya */
+    }
+
+    .tab-button {
+        display: inline-block; /* Horizontal scroll ke liye */
+        padding: 15px 20px;
+        min-width: 120px;
+    }
+
+    /* 2. Appointment Cards ki spacing mobile par */
+    .appointment-card {
+        padding: 15px;
+        border-radius: 8px;
+    }
+
+    .appointment-header h3 {
+        font-size: 1.1rem;
+    }
+
+    .status-badge {
+        padding: 4px 10px;
+        font-size: 0.75rem;
+    }
+
+    /* 3. Inputs fix zoom issue */
+    .input-group input,
+    .input-group textarea {
+        font-size: 16px; /* Zaroori: Mobile zoom prevent karne ke liye */
+        padding: 10px 14px;
+    }
+
+    /* 4. Form Button optimization */
+    .form-button {
+        padding: 16px; /* Touch target bada karne ke liye */
+        font-size: 1.1rem;
+    }
+
+    /* 5. Appointment details text alignment */
+    .appointment-details p {
+        font-size: 0.9rem;
+        line-height: 1.4;
+    }
+}
+
+/* Very Small Phones (iPhone SE etc.) */
+@media (max-width: 400px) {
+    .dashboard-header h1 {
+        font-size: 1.5rem;
+    }
+
+    .appointment-actions {
+        flex-direction: column; /* Buttons ek ke niche ek chote phones par */
+        gap: 8px;
+    }
+
+    .btn-accept, .btn-reject {
+        width: 100%;
+        padding: 12px;
+    }
+}

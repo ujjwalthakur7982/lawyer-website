@@ -160,3 +160,81 @@
   font-size: 13px;
   color: #999;
 }
+/* --- Mobile Responsiveness (My Account Page ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .myaccount-container {
+    margin: 20px 10px; /* Side margins kam kar di */
+    border-radius: 10px;
+  }
+
+  /* 1. Header (Image aur Text ko center kiya) */
+  .profile-header {
+    flex-direction: column;
+    text-align: center;
+    padding: 25px 15px;
+  }
+
+  .profile-image {
+    margin-right: 0;
+    margin-bottom: 15px;
+    width: 100px;
+    height: 100px;
+  }
+
+  .profile-info h1 {
+    font-size: 24px;
+  }
+
+  .profile-meta {
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  /* 2. Actions (3 columns se 1 column kiya) */
+  .profile-actions {
+    grid-template-columns: 1fr; /* Buttons ek ke niche ek */
+    padding: 20px;
+    gap: 10px;
+  }
+
+  .action-button {
+    width: 100%;
+    padding: 14px;
+    font-size: 15px;
+  }
+
+  /* 3. Details Section (Grid ko vertical kiya) */
+  .details-section {
+    padding: 20px 15px;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr; /* Saari information vertical stack mein */
+    gap: 12px;
+  }
+
+  .info-item {
+    padding: 12px;
+  }
+
+  .info-item label {
+    font-size: 11px;
+  }
+
+  /* 4. Feedback state (Empty state fix) */
+  .feedback-state {
+    padding: 50px 20px;
+  }
+}
+
+/* Screen width agar aur choti ho (iPhone SE etc.) */
+@media (max-width: 480px) {
+  .profile-info h1 {
+    font-size: 20px;
+  }
+  
+  .details-section h3 {
+    font-size: 18px;
+  }
+}

@@ -59,3 +59,36 @@
   border-top: 1px solid #333; /* Separator line */
   font-size: 0.8rem;
 }
+/* --- Mobile Responsiveness (Sirf ye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .footer-container {
+    padding: 30px 15px 15px 15px; /* Thoda kam padding mobile ke liye */
+    text-align: center; /* Sab kuch center mein dikhega toh mobile pe sunder lagega */
+  }
+
+  .footer-content {
+    flex-direction: column; /* Sections ek ke niche ek aayenge */
+    align-items: center;
+    gap: 30px; /* Sections ke beech thoda gap */
+  }
+
+  .footer-section {
+    min-width: 100%; /* Har section poori width lega */
+  }
+
+  .footer-section h3 {
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+  }
+
+  .footer-section p {
+    max-width: 300px; /* Text bahut phail na jaye */
+    margin: 0 auto;
+  }
+
+  .footer-bottom {
+    margin-top: 30px;
+    font-size: 0.75rem;
+  }
+}

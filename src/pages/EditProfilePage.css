@@ -104,3 +104,57 @@
   margin-bottom: 20px;
   font-size: 14px;
 }
+/* --- Mobile Responsiveness (Edit Profile ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .edit-profile-container {
+    margin: 20px 15px; /* Side margins kam kar di */
+    padding: 25px 20px; /* Padding kam taaki choti screen pe fit ho sake */
+    border-radius: 10px;
+  }
+
+  .edit-profile-container h2 {
+    font-size: 22px;
+    text-align: center;
+  }
+
+  .edit-profile-container .sub-heading {
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 25px;
+  }
+
+  .form-group label {
+    font-size: 13px; /* Label thoda chota */
+  }
+
+  .form-group .form-control {
+    font-size: 16px; /* Zaroori: Mobile zoom issue se bachne ke liye */
+    padding: 10px 12px;
+  }
+
+  .form-actions {
+    flex-direction: column; /* Buttons ek ke niche ek aayenge */
+    gap: 12px;
+    justify-content: center;
+  }
+
+  .form-button {
+    width: 100%; /* Buttons poori width lenge mobile par */
+    padding: 14px; /* Dabane mein easy rahega */
+    font-size: 16px;
+    text-align: center;
+  }
+
+  .error-message {
+    text-align: center; /* Error message mobile par center mein dikhega */
+    margin-top: 5px;
+  }
+}
+
+/* Extra small screens ke liye optimization */
+@media (max-width: 480px) {
+  .edit-profile-container {
+    padding: 20px 15px;
+  }
+}

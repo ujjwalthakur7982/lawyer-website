@@ -71,3 +71,52 @@
   font-size: 1.2rem;
   color: #6c757d;
 }
+/* --- Mobile Responsiveness (Appointments Page ke liye) --- */
+
+@media (max-width: 768px) {
+  .appointments-header {
+    padding: 40px 15px; /* Header thoda chota mobile ke liye */
+  }
+
+  .appointments-header h1 {
+    font-size: 2rem; /* Heading ka size phone ke hisaab se */
+  }
+
+  .appointments-list {
+    margin: -20px auto 0 auto; /* Overlap thoda kam kiya */
+    padding: 15px;
+  }
+
+  .appointment-card {
+    flex-direction: column; /* Information aur Badge ek ke neeche ek */
+    align-items: flex-start; /* Sab kuch left-aligned */
+    gap: 15px;
+    padding: 20px;
+  }
+
+  .appointment-card h3 {
+    font-size: 1.1rem;
+  }
+
+  .appointment-card p {
+    font-size: 0.9rem;
+  }
+
+  .status-badge {
+    padding: 6px 12px;
+    font-size: 0.8rem;
+    width: auto; /* Badge sirf utna phaila jitna text hai */
+  }
+}
+
+/* Screen width agar aur choti ho (iPhone SE etc.) */
+@media (max-width: 480px) {
+  .appointments-header h1 {
+    font-size: 1.7rem;
+  }
+  
+  .no-appointments-message {
+    font-size: 1rem;
+    padding: 0 20px;
+  }
+}

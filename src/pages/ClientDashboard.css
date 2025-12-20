@@ -243,3 +243,79 @@
     flex-direction: column;
   }
 }
+/* --- Additional Mobile Optimization (Sirf ye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .client-header h1 {
+    font-size: 1.8rem; /* Mobile par header thoda aur chota */
+  }
+
+  .client-header p {
+    font-size: 1rem;
+    padding: 0 10px;
+  }
+
+  .client-content {
+    padding: 20px 15px; /* Side padding kam ki taaki cards ko jagah mile */
+  }
+
+  .lawyers-section h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+  }
+
+  /* Grid adjustment for very small screens */
+  .lawyers-grid {
+    grid-template-columns: 1fr; /* Pakka ek column hi rahega */
+    gap: 15px;
+  }
+
+  .lawyer-card {
+    padding: 18px;
+    border-radius: 12px; /* Thoda kam round mobile ke liye */
+  }
+
+  .lawyer-info h3 {
+    font-size: 1.2rem;
+  }
+
+  /* Booking Modal Fixes for Mobile */
+  .booking-modal {
+    width: 95%; /* Modal screen ke edges se na takraye */
+    padding: 20px;
+    border-radius: 12px;
+  }
+
+  .modal-header h3 {
+    font-size: 1.2rem;
+  }
+
+  .booking-form label {
+    font-size: 0.9rem;
+  }
+
+  .booking-form input, 
+  .booking-form textarea {
+    font-size: 16px; /* Zaroori: Mobile browser zoom prevent karne ke liye */
+    padding: 10px;
+  }
+
+  .form-actions {
+    gap: 10px;
+  }
+  
+  .form-actions button {
+    padding: 14px; /* Angoothe se dabane mein aasani ho */
+  }
+}
+
+/* For Extra Small Phones (iPhone SE etc.) */
+@media (max-width: 400px) {
+  .client-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .lawyer-card {
+    padding: 15px;
+  }
+}

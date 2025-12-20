@@ -70,3 +70,35 @@
   text-decoration: none;
   font-weight: 600;
 }
+/* Mobile ke liye special rules */
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px;
+    display: flex;
+    align-items: center; /* Center mein rakhega content */
+    justify-content: center;
+  }
+
+  .form-box {
+    width: 100%; /* Box poori width lega mobile par */
+    max-width: 400px; 
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .form-box h2 {
+    font-size: 1.8rem; /* Mobile par heading thodi choti */
+    text-align: center;
+  }
+
+  .input-group input {
+    font-size: 16px; /* Mobile keyboard zoom issue nahi dega */
+    padding: 12px;
+  }
+
+  .form-button {
+    height: 48px; /* Angoothe se dabane mein aasani hogi */
+    font-size: 1.1rem;
+  }
+}

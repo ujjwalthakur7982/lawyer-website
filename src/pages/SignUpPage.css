@@ -89,3 +89,54 @@
   text-decoration: none;
   font-weight: 600;
 }
+/* --- Mobile Responsiveness (Login/Signup Forms ke liye) --- */
+
+@media (max-width: 768px) {
+  .form-container {
+    padding: 20px 15px; /* Bahar ki spacing thodi kam mobile ke liye */
+    background-color: #ffffff; /* Mobile par clean look ke liye pure white bhi kar sakte ho */
+  }
+
+  .form-box {
+    padding: 30px 20px; /* Andar ki padding kam ki taaki input bars bade dikhein */
+    box-shadow: none; /* Mobile par shadow ki jagah halka border zyada professional lagta hai */
+    border: 1px solid #eee;
+  }
+
+  .form-box h2 {
+    font-size: 1.7rem; /* Heading thodi choti mobile ke liye */
+    margin-bottom: 25px;
+  }
+
+  .input-group input {
+    font-size: 16px; /* Zaroori: Isse typing ke waqt mobile browser zoom-in nahi karega */
+    padding: 14px 15px; /* Touch ke liye thoda bada padding */
+  }
+
+  .role-selector button {
+    padding: 14px 10px; /* Buttons ko angoothe (thumb) se dabana aasaan ho jayega */
+    font-size: 0.95rem;
+  }
+
+  .form-button {
+    padding: 16px;
+    font-size: 1.1rem;
+    margin-top: 15px;
+  }
+
+  .form-link {
+    font-size: 0.95rem;
+    margin-top: 25px;
+  }
+}
+
+/* Very Small Screens (iPhone SE etc.) */
+@media (max-width: 380px) {
+  .form-box {
+    padding: 20px 15px;
+  }
+  
+  .form-box h2 {
+    font-size: 1.5rem;
+  }
+}

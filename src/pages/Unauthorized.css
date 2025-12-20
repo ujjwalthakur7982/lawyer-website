@@ -108,3 +108,55 @@
     font-size: 2rem;
   }
 }
+/* --- Unauthorized Mobile Refinement (Sirf ye neeche add kar de) --- */
+
+@media (max-width: 768px) {
+  .unauthorized-container {
+    padding: 15px; /* Side spacing kam ki */
+  }
+
+  .unauthorized-content {
+    padding: 40px 20px; /* Thoda tight padding mobile ke liye */
+    border-radius: 15px;
+  }
+
+  .unauthorized-icon {
+    font-size: 3rem; /* Icon thoda chota */
+    margin-bottom: 15px;
+  }
+
+  .unauthorized-content h1 {
+    font-size: 1.8rem; /* Heading mobile ke hisaab se set ki */
+  }
+
+  .unauthorized-content p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+
+  .role-info {
+    padding: 12px;
+    margin-bottom: 25px;
+  }
+
+  .unauthorized-actions {
+    gap: 10px; /* Buttons ke beech thoda kam gap */
+  }
+
+  .btn-primary, .btn-secondary, .btn-client {
+    padding: 14px 20px; /* Mobile par tap karne mein aasaan (Fitts's Law) */
+    font-size: 0.95rem;
+    width: 100%; /* Pakka kiya ki buttons poori width lein */
+  }
+}
+
+/* Bahut chote phones ke liye (iPhone SE etc.) */
+@media (max-width: 380px) {
+  .unauthorized-content h1 {
+    font-size: 1.5rem;
+  }
+  
+  .unauthorized-icon {
+    font-size: 2.5rem;
+  }
+}

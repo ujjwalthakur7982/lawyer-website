@@ -58,3 +58,33 @@
 .notification-item:last-child {
   border-bottom: none;
 }
+/* --- Mobile Responsiveness (Notification Panel ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .notifications-panel {
+    width: 280px; /* Mobile par panel ki width thodi kam */
+    right: -50px; /* Panel ko screen ke andar rakhne ke liye adjust kiya */
+    top: 45px;
+  }
+
+  .bell-button {
+    font-size: 1.3rem; /* Mobile par bell icon thoda chota */
+  }
+
+  .notification-item {
+    padding: 12px; /* Thoda compact padding mobile ke liye */
+    font-size: 0.85rem;
+  }
+
+  .panel-body {
+    max-height: 300px; /* Mobile screen par panel bahut lamba na ho jaye */
+  }
+}
+
+/* Bahut chote phones ke liye (iPhone SE types) */
+@media (max-width: 380px) {
+  .notifications-panel {
+    width: 250px;
+    right: -30px;
+  }
+}

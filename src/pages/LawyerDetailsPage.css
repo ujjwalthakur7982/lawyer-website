@@ -11,3 +11,31 @@
   font-family: inherit;
   resize: vertical;
 }
+/* --- Mobile Responsiveness (Signup/Input styles ke liye) --- */
+
+@media (max-width: 768px) {
+  /* Textarea ko mobile par adjust kiya */
+  .input-group textarea {
+    padding: 10px 12px;
+    font-size: 16px; /* Zaroori: Mobile zoom prevent karne ke liye */
+    min-height: 80px; /* Choti screen par height thodi kam */
+  }
+
+  /* Agar is file mein form-container ya form-box hai */
+  .form-container {
+    padding: 20px 15px;
+  }
+
+  .form-box {
+    width: 100%;
+    max-width: 100%;
+    padding: 20px;
+    box-shadow: none; /* Mobile par clean look ke liye shadow hata sakte ho */
+    border: 1px solid #eee;
+  }
+
+  .form-box h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+  }
+}

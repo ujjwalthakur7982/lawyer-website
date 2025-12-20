@@ -118,3 +118,81 @@
   padding: 50px;
   font-size: 1.5rem;
 }
+/* --- Mobile Responsiveness (Lawyer Profile Page ke liye) --- */
+
+@media (max-width: 768px) {
+  .profile-page-background {
+    padding: 20px 10px; /* Outer spacing kam kar di */
+  }
+
+  .profile-card {
+    border-radius: 15px; /* Mobile par thode chote corners */
+  }
+
+  .profile-card-header {
+    padding: 30px 15px;
+  }
+
+  .profile-card-avatar {
+    width: 100px; /* Avatar thoda chota kiya */
+    height: 100px;
+    margin-bottom: 15px;
+  }
+
+  .profile-card-header h2 {
+    font-size: 1.8rem; /* Name thoda chota */
+  }
+
+  .profile-card-header p {
+    font-size: 1rem;
+  }
+
+  /* 1. Stats Fix: Agar 3 se zyada stats hain toh wrap ho jayenge */
+  .profile-card-stats {
+    flex-wrap: wrap; 
+    gap: 20px;
+    padding: 20px 10px;
+  }
+
+  .stat-item {
+    flex: 1 1 40%; /* Mobile par 2 stats ek line mein aa sakte hain */
+  }
+
+  .stat-item span {
+    font-size: 1.3rem;
+  }
+
+  /* 2. Bio Section */
+  .profile-card-bio {
+    padding: 20px;
+  }
+
+  .profile-card-bio h3 {
+    font-size: 1.2rem;
+  }
+
+  .profile-card-bio p {
+    font-size: 0.95rem;
+    line-height: 1.6;
+  }
+
+  /* 3. Footer Buttons: Ek ke neeche ek (Stack) */
+  .profile-card-footer {
+    flex-direction: column; 
+    padding: 15px 20px;
+    gap: 10px;
+  }
+
+  .profile-card-button {
+    width: 100%; /* Poori width lenge mobile par */
+    padding: 14px;
+    font-size: 1rem;
+  }
+}
+
+/* Bahut chote phones ke liye */
+@media (max-width: 480px) {
+  .stat-item {
+    flex: 1 1 100%; /* Har stat apni alag line lega */
+  }
+}

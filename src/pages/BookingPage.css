@@ -113,3 +113,66 @@
   background-color: #a9a9a9;
   cursor: not-allowed;
 }
+/* --- Mobile Responsiveness (Booking Page ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .booking-page-container {
+    padding: 20px 10px; /* Outer padding kam kar di */
+  }
+
+  .booking-card {
+    border-radius: 15px; /* Thoda kam round mobile ke liye */
+  }
+
+  .booking-header {
+    padding: 20px;
+  }
+
+  .booking-header h2 {
+    font-size: 1.5rem; /* Title thoda chota */
+  }
+
+  /* Body ko Column banaya taaki Calendar aur Timeslots ek ke niche ek aayein */
+  .booking-body {
+    flex-direction: column;
+    padding: 20px;
+  }
+
+  .calendar-container {
+    padding-right: 0;
+    border-right: none; /* Side border hataya */
+    border-bottom: 1px solid #eee; /* Niche border lagaya separation ke liye */
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+  }
+
+  .timeslot-container {
+    padding-left: 0;
+  }
+
+  .timeslot-grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns sahi hain, par buttons chote ho jayenge */
+    gap: 8px;
+  }
+
+  .timeslot-button {
+    padding: 10px 5px;
+    font-size: 0.9rem; /* Text size thoda kam */
+  }
+
+  .booking-footer {
+    padding: 15px 20px;
+  }
+
+  .booking-button {
+    padding: 15px;
+    font-size: 1rem;
+  }
+}
+
+/* Bahut chote phones ke liye (iPhone SE etc.) */
+@media (max-width: 400px) {
+  .timeslot-grid {
+    grid-template-columns: 1fr; /* Ek line mein ek hi slot dikhega */
+  }
+}

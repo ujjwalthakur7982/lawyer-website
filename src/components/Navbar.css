@@ -73,3 +73,41 @@
 .logout-btn:hover {
   background-color: #ffdce0;
 }
+/* --- Mobile Responsiveness (Navbar ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .navbar {
+    padding: 12px 20px; /* Padding kam kar di taaki logo aur button fit ho jayein */
+    flex-wrap: wrap; /* Agar cheezein badi hon toh wo niche shift ho jayein */
+  }
+
+  .navbar-logo {
+    font-size: 20px; /* Logo thoda chota */
+  }
+
+  /* Links ko mobile par chhupana ya adjust karna */
+  .navbar-links {
+    display: none; /* Mobile par aksar links hamburger menu mein hote hain, 
+                     agar tune hamburger nahi banaya toh filhaal ise hide karna safe hai 
+                     taaki design na phate. */
+  }
+
+  .navbar-actions {
+    gap: 8px; /* Buttons ke beech gap kam */
+  }
+
+  .login-btn, .logout-btn {
+    padding: 8px 15px; /* Buttons thode chote phone ke liye */
+    font-size: 14px;
+  }
+}
+
+/* Chote phones ke liye (Very Small Screens) */
+@media (max-width: 480px) {
+  .navbar {
+    justify-content: space-between;
+  }
+  
+  /* Agar tujhe mobile par links dikhane hain toh niche wala use kar sakte ho, 
+     warna upar wala display:none sahi hai */
+}

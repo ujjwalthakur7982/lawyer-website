@@ -74,3 +74,46 @@
   font-weight: 600;
   cursor: pointer;
 }
+/* --- Mobile Responsiveness (Chat Page ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  .chat-header {
+    padding: 10px; /* Header thoda patla mobile ke liye */
+  }
+
+  .chat-header h2 {
+    font-size: 1.2rem; /* Naam thoda chota */
+  }
+
+  .message-list {
+    padding: 15px 10px; /* Side padding kam taaki bubbles ko jagah mile */
+  }
+
+  .message-bubble {
+    max-width: 85%; /* Mobile par bubble thoda bada (wide) hona chahiye */
+    padding: 10px 14px;
+    font-size: 0.95rem;
+  }
+
+  .chat-footer {
+    padding: 8px; /* Footer compact kiya */
+    padding-bottom: 20px; /* iPhone/Android home bar ke liye thodi extra jagah */
+  }
+
+  .chat-footer input {
+    height: 40px;
+    font-size: 16px; /* Zaroori: Mobile zoom issue se bachne ke liye */
+  }
+
+  .chat-footer button {
+    padding: 0 15px; /* Button thoda chota */
+    font-size: 0.9rem;
+  }
+}
+
+/* Bahut chote screens ke liye */
+@media (max-width: 480px) {
+  .message-bubble {
+    max-width: 90%; /* Chote phone par aur zyada width */
+  }
+}

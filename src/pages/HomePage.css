@@ -330,3 +330,112 @@
   color: #666;
   font-size: 14px;
 }
+/* --- Mobile Responsiveness (Home Page ke liye niche add kar de) --- */
+
+@media (max-width: 768px) {
+  /* 1. Hero Section Fix */
+  .hero-section {
+    height: 50vh; /* Height thodi kam mobile ke liye */
+    padding: 0 15px;
+  }
+
+  .hero-content h1 {
+    font-size: 2rem; /* Heading choti ki taaki screen se bahar na jaye */
+    margin-bottom: 15px;
+  }
+
+  .search-box {
+    flex-direction: column; /* Input aur Button ek ke niche ek */
+    gap: 10px;
+    width: 100%;
+  }
+
+  .search-box input {
+    width: 100%;
+    height: 50px;
+    border-radius: 8px; /* Charo taraf se round */
+    font-size: 16px; /* Zoom prevent karne ke liye */
+  }
+
+  .search-box button, .search-btn {
+    width: 100%;
+    height: 50px;
+    border-radius: 8px;
+    font-size: 1rem;
+  }
+
+  /* 2. Sections Spacing */
+  .home-section {
+    padding: 40px 15px;
+  }
+
+  .home-section h2 {
+    font-size: 1.6rem;
+    margin-bottom: 25px;
+  }
+
+  /* 3. Works Section (How it works) */
+  .works-grid {
+    grid-template-columns: 1fr; /* Ek column mein steps */
+    gap: 20px;
+  }
+
+  .work-step {
+    padding: 20px;
+  }
+
+  /* 4. Categories Grid */
+  .categories-grid {
+    grid-template-columns: repeat(2, 1fr); /* Mobile par 2 categories ek line mein */
+    gap: 12px;
+    padding: 0 10px;
+  }
+
+  .category-card {
+    padding: 15px 10px;
+    font-size: 0.9rem;
+  }
+
+  .category-icon {
+    font-size: 1.8rem;
+  }
+
+  /* 5. Lawyer Cards Fix */
+  .lawyer-card {
+    flex-direction: column; /* Avatar aur Info ek ke niche ek */
+    text-align: center;
+    padding: 20px;
+  }
+
+  .lawyer-avatar {
+    margin-right: 0;
+    margin-bottom: 15px;
+    width: 70px;
+    height: 70px;
+  }
+
+  /* 6. Testimonials Section */
+  .testimonials-grid {
+    grid-template-columns: 1fr; /* Single column testimonials */
+    gap: 20px;
+  }
+
+  .testimonial-card {
+    padding: 20px;
+  }
+
+  .testimonial-card p {
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 480px) {
+  .hero-content h1 {
+    font-size: 1.7rem;
+  }
+  
+  .categories-grid {
+    grid-template-columns: 1fr; /* Bahut chote phone par 1 column */
+  }
+}
