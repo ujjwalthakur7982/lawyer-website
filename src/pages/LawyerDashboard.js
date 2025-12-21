@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
+import ChatSidebar from '../components/ChatSidebar'; // ✅ Path check kar lena agar alag ho
 import './LawyerDashboard.css';
 
 function LawyerDashboard() {
@@ -16,42 +17,24 @@ function LawyerDashboard() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  // ✅ Naya Azure Backend URL variable
+  // ✅ Azure Backend URL
   const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
 
   const fetchAppointments = async (token) => {
     try {
       setLoading(true);
-      // ✅ Updated to Azure URL
       const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyer/appointments`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch appointments');
-      }
-      
       const data = await response.json();
       if (data.success) {
         setAppointments(data.appointments || []);
-      } else {
-        console.error("Appointments error:", data.message);
       }
     } catch (error) { 
       console.error("Error fetching appointments:", error);
-      setAppointments([
-        {
-          AppointmentID: 1,
-          ClientName: "Demo Client",
-          Date: "2024-01-15",
-          Time: "10:00 AM",
-          Status: "pending",
-          CaseDetails: "Property consultation needed"
-        }
-      ]);
     } finally {
       setLoading(false);
     }
@@ -60,18 +43,12 @@ function LawyerDashboard() {
   const fetchProfile = async (token) => {
     try {
       setLoading(true);
-      // ✅ Updated to Azure URL
       const response = await fetch(`${AZURE_BACKEND_URL}/api/my-lawyer-profile`, {
         headers: { 
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'application/json'
         }
       });
-      
-      if (!response.ok) {
-        throw new Error('Failed to fetch profile');
-      }
-      
       const data = await response.json();
       if (data.success && data.profile) {
         setProfileData({
@@ -112,15 +89,8 @@ function LawyerDashboard() {
   const handleProfileUpdate = async (event) => {
     event.preventDefault();
     const token = localStorage.getItem('token');
-    
-    if (!token) {
-      navigate('/login');
-      return;
-    }
-
     setLoading(true);
     try {
-      // ✅ Updated to Azure URL
       const response = await fetch(`${AZURE_BACKEND_URL}/api/my-lawyer-profile`, {
         method: 'POST',  
         headers: {
@@ -129,15 +99,9 @@ function LawyerDashboard() {
         },
         body: JSON.stringify(profileData)
       });
-      
       const data = await response.json();
-      if (data.success) {
-        alert('Profile updated successfully!');
-      } else {
-        alert("Failed to update profile: " + (data.message || 'Unknown error'));
-      }
+      if (data.success) alert('Profile updated successfully!');
     } catch (error) {
-      console.error("Update error:", error);
       alert("Could not connect to the server.");
     } finally {
       setLoading(false);
@@ -152,8 +116,8 @@ function LawyerDashboard() {
   const updateAppointmentStatus = async (appointmentId, status) => {
     const token = localStorage.getItem('token');
     try {
-      // ✅ Updated to Azure URL
-      const response = await fetch(`${AZURE_BACKEND_URL}/api/lawyer/appointments/${appointmentId}/status`, {
+      // ✅ FIXED: URL ab backend route se match kar raha hai
+      const response = await fetch(`${AZURE_BACKEND_URL}/api/appointments/${appointmentId}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -166,8 +130,6 @@ function LawyerDashboard() {
       if (data.success) {
         alert(`Appointment ${status} successfully!`);
         fetchAppointments(token);  
-      } else {
-        alert("Failed to update appointment: " + data.message);
       }
     } catch (error) {
       alert("Could not connect to the server.");
@@ -186,6 +148,12 @@ function LawyerDashboard() {
           onClick={() => setActiveTab('appointments')}
         >
           Appointments
+        </button>
+        <button 
+          className={`tab-button ${activeTab === 'messages' ? 'active' : ''}`} 
+          onClick={() => setActiveTab('messages')}
+        >
+          Messages
         </button>
         <button 
           className={`tab-button ${activeTab === 'profile' ? 'active' : ''}`} 
@@ -226,6 +194,18 @@ function LawyerDashboard() {
                 ))}
               </div>
             )}
+          </motion.div>
+        )}
+
+        {activeTab === 'messages' && (
+          <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="messages-section">
+            <h2 style={{ marginBottom: '15px' }}>Recent Messages</h2>
+            <div style={{ display: 'flex', background: 'white', borderRadius: '10px', overflow: 'hidden', minHeight: '400px', border: '1px solid #eee' }}>
+              <ChatSidebar />
+              <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center', background: '#fdfdfd', color: '#aaa' }}>
+                <p>Select a client to view conversation</p>
+              </div>
+            </div>
           </motion.div>
         )}
 

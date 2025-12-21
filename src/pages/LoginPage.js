@@ -8,7 +8,7 @@ function LoginPage() {
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  // ✅ Naya Azure Backend URL
+  // ✅ Azure Backend URL
   const AZURE_BACKEND_URL = "https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net";
 
   const handleLogin = async (event) => {
@@ -19,7 +19,6 @@ function LoginPage() {
     }
 
     try {
-      // ✅ URL UPDATED TO AZURE
       const response = await fetch(`${AZURE_BACKEND_URL}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
@@ -29,8 +28,12 @@ function LoginPage() {
       const data = await response.json();
 
       if (data.success) {
+        // ✅ Sabse important part: Token, Role aur UserId teeno save kar rahe hain
         localStorage.setItem('token', data.token);
         localStorage.setItem('role', data.role);
+        localStorage.setItem('userId', data.userId); // Ye line chat ke alignment ke liye zaroori hai
+
+        console.log("Login Successful, UserID saved:", data.userId);
 
         if (data.role === 'Lawyer') {
           navigate('/dashboard');
@@ -42,6 +45,7 @@ function LoginPage() {
         alert('Login Failed: ' + data.message);
       }
     } catch (error) {
+      console.error("Login error:", error);
       alert('Could not connect to the server.');
     }
   };
@@ -68,13 +72,27 @@ function LoginPage() {
         <motion.h2 variants={itemVariants}>Welcome Back!</motion.h2>
         <motion.div className="input-group" variants={itemVariants}>
           <label htmlFor="email">Email</label>
-          <input type="email" id="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+          <input 
+            type="email" 
+            id="email" 
+            value={email} 
+            onChange={(e) => setEmail(e.target.value)} 
+            required 
+          />
         </motion.div>
         <motion.div className="input-group" variants={itemVariants}>
           <label htmlFor="password">Password</label>
-          <input type="password" id="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+          <input 
+            type="password" 
+            id="password" 
+            value={password} 
+            onChange={(e) => setPassword(e.target.value)} 
+            required 
+          />
         </motion.div>
-        <motion.button type="submit" className="form-button" variants={itemVariants}>Login</motion.button>
+        <motion.button type="submit" className="form-button" variants={itemVariants}>
+          Login
+        </motion.button>
         <motion.p className="form-link" variants={itemVariants}>
           Don't have an account? <Link to="/signup">Sign Up</Link>
         </motion.p>
