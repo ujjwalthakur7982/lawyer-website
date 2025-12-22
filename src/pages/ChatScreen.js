@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { socket } from '../socket'; // Ensure path is correct
+import { socket } from '../socket';
 import axios from 'axios';
 import './ChatScreen.css';
 
 function ChatScreen() {
   let { lawyerId } = useParams();
-  
-  // LocalStorage se ID nikal kar Number mein convert kiya
   const currentUserId = parseInt(localStorage.getItem('userId')); 
   
   const [messages, setMessages] = useState([]);
@@ -17,39 +15,45 @@ function ChatScreen() {
   useEffect(() => {
     const setupChat = async () => {
       try {
-        // 1. Backend se RoomID mangwao ya naya banwao
+        const token = localStorage.getItem('token');
+        
+        // 1. Get RoomID
         const resRoom = await axios.post(
           'https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net/api/chat/get_or_create_room', 
           { lawyerId: lawyerId }, 
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }}
+          { headers: { Authorization: `Bearer ${token}` }}
         );
         
         const rId = resRoom.data.room_id;
         setRoomId(rId);
 
-        // 2. Socket connect aur room join
+        // 2. Load History First (Taaki refresh par data na jaye)
+        const resMsgs = await axios.get(
+          `https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net/api/chat/messages/${rId}`, 
+          { headers: { Authorization: `Bearer ${token}` }}
+        );
+        setMessages(resMsgs.data.messages || []);
+
+        // 3. Socket Setup
         socket.connect();
         socket.emit("join_room", { room_id: rId });
 
-        // 3. Purani chat history load karo
-        const resMsgs = await axios.get(
-          `https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net/api/chat/messages/${rId}`, 
-          { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }}
-        );
-        setMessages(resMsgs.data.messages || []);
       } catch (err) {
-        console.error("Chat setup fail ho gaya bhai:", err);
+        console.error("Setup fail:", err);
       }
     };
 
-    if (lawyerId && currentUserId) {
-      setupChat();
-    }
+    if (lawyerId && currentUserId) setupChat();
 
-    // Live message listener
+    // Live listener
     socket.on("receive_message", (data) => {
-      // Check taaki usi room ka message dikhe
-      setMessages((prev) => [...prev, data]);
+      // ✅ Consistency check: Socket data ko DB format mein map karo
+      const formattedMsg = {
+        SenderID: data.sender_id,
+        MessageText: data.message,
+        Timestamp: new Date().toISOString()
+      };
+      setMessages((prev) => [...prev, formattedMsg]);
     });
 
     return () => {
@@ -58,48 +62,34 @@ function ChatScreen() {
     };
   }, [lawyerId, currentUserId]);
 
-  const handleSend = async () => {
+  const handleSend = () => {
     if (newMessage.trim() === '' || !roomId) return;
 
     const msgData = {
       room_id: roomId,
       sender_id: currentUserId,
-      message: newMessage,
-      timestamp: new Date().toISOString()
+      message: newMessage
     };
 
-    // A. Live bhej do socket pe
+    // Socket pe bhej do (Backend isse DB mein save kar lega humne app.py update kiya tha)
     socket.emit("send_message", msgData);
 
-    // B. Permanent save karo Azure DB mein
-    try {
-      await axios.post(
-        'https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net/api/chat/send', 
-        { room_id: roomId, message: newMessage }, 
-        { headers: { Authorization: `Bearer ${localStorage.getItem('token')}` }}
-      );
-    } catch (err) {
-      console.error("Database save error:", err);
-    }
-
-    // UI update (Bhejne wale ke liye)
-    setMessages((prev) => [...prev, msgData]);
     setNewMessage('');
   };
 
   return (
     <div className="chat-page-container">
       <header className="chat-header">
-        <h3>Chat with Lawyer ID: {lawyerId}</h3>
+        <h3>Chat Session</h3>
       </header>
       
       <div className="message-list">
         {messages.map((msg, index) => (
           <div 
             key={index} 
-            className={`message-bubble ${msg.sender_id === currentUserId ? 'my-message' : 'their-message'}`}
+            className={`message-bubble ${ (msg.SenderID || msg.sender_id) === currentUserId ? 'my-message' : 'their-message'}`}
           >
-            {/* MessageText DB se aata hai, .message Socket se */}
+            {/* DB aur Socket dono ke field names cover ho gaye */}
             <p>{msg.MessageText || msg.message}</p>
           </div>
         ))}
@@ -108,7 +98,7 @@ function ChatScreen() {
       <footer className="chat-footer">
         <input 
           type="text" 
-          placeholder="Type your message..." 
+          placeholder="Type a message..." 
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSend()}
