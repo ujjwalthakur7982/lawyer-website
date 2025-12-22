@@ -5,7 +5,7 @@ import axios from 'axios';
 import './ChatScreen.css';
 
 function ChatScreen() {
-  let { lawyerId } = useParams();
+  const { lawyerId } = useParams();
   const currentUserId = parseInt(localStorage.getItem('userId')); 
   
   const [messages, setMessages] = useState([]);
@@ -27,40 +27,39 @@ function ChatScreen() {
         const rId = resRoom.data.room_id;
         setRoomId(rId);
 
-        // 2. Load History First (Taaki refresh par data na jaye)
+        // 2. Load History (Database se fetch)
         const resMsgs = await axios.get(
           `https://nyayconnect-api-frg8c7cggxhvdgg6.koreacentral-01.azurewebsites.net/api/chat/messages/${rId}`, 
           { headers: { Authorization: `Bearer ${token}` }}
         );
+        
+        // History set kar di
         setMessages(resMsgs.data.messages || []);
 
-        // 3. Socket Setup
+        // 3. Socket Setup & Room Join
         socket.connect();
         socket.emit("join_room", { room_id: rId });
 
       } catch (err) {
-        console.error("Setup fail:", err);
+        console.error("Chat Setup Error:", err);
       }
     };
 
-    if (lawyerId && currentUserId) setupChat();
+    if (lawyerId) {
+      setupChat();
+    }
 
-    // Live listener
+    // Live Socket Listener
     socket.on("receive_message", (data) => {
-      // ✅ Consistency check: Socket data ko DB format mein map karo
-      const formattedMsg = {
-        SenderID: data.sender_id,
-        MessageText: data.message,
-        Timestamp: new Date().toISOString()
-      };
-      setMessages((prev) => [...prev, formattedMsg]);
+      // ✅ Socket data ko Messages array mein add karo
+      setMessages((prev) => [...prev, data]);
     });
 
     return () => {
       socket.off("receive_message");
       socket.disconnect();
     };
-  }, [lawyerId, currentUserId]);
+  }, [lawyerId]); // Depend on lawyerId only
 
   const handleSend = () => {
     if (newMessage.trim() === '' || !roomId) return;
@@ -71,34 +70,39 @@ function ChatScreen() {
       message: newMessage
     };
 
-    // Socket pe bhej do (Backend isse DB mein save kar lega humne app.py update kiya tha)
+    // Socket emit (app.py isse receive karke DB mein save kar raha hai)
     socket.emit("send_message", msgData);
-
     setNewMessage('');
   };
 
   return (
     <div className="chat-page-container">
       <header className="chat-header">
-        <h3>Chat Session</h3>
+        <h3>Chat Room</h3>
       </header>
       
       <div className="message-list">
-        {messages.map((msg, index) => (
-          <div 
-            key={index} 
-            className={`message-bubble ${ (msg.SenderID || msg.sender_id) === currentUserId ? 'my-message' : 'their-message'}`}
-          >
-            {/* DB aur Socket dono ke field names cover ho gaye */}
-            <p>{msg.MessageText || msg.message}</p>
-          </div>
-        ))}
+        {messages.map((msg, index) => {
+          // ✅ DB se 'SenderID' aur 'MessageText' aata hai
+          // ✅ Socket se 'sender_id' aur 'message' aata hai
+          const sender = msg.SenderID || msg.sender_id;
+          const text = msg.MessageText || msg.message;
+
+          return (
+            <div 
+              key={index} 
+              className={`message-bubble ${sender == currentUserId ? 'my-message' : 'their-message'}`}
+            >
+              <p>{text}</p>
+            </div>
+          );
+        })}
       </div>
 
       <footer className="chat-footer">
         <input 
           type="text" 
-          placeholder="Type a message..." 
+          placeholder="Type your message..." 
           value={newMessage}
           onChange={(e) => setNewMessage(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSend()}
